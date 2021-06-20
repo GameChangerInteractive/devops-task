@@ -50,9 +50,9 @@ jobs:
       - checkout
       - azure-cli/install
       - azure-cli/login-with-service-principal
-      - run:
-          name: Create wrkdir
-          command: mkdir ~/wrkdir
+      # - run:
+      #     name: Create wrkdir
+      #     command: mkdir ~/wrkdir
       - run:
           name: Copy project to ~/wrkdir
           command: for cop in $(ls -1 ../|grep -v "terraform\|wrkdir"); do cp -r ../$cop ./; done
