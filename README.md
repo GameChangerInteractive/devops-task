@@ -10,3 +10,6 @@ The app expects the following environmental variables:
 * MONGODB_NAME - MongoDB database name
 
 Continues deployment should be configured for the app, so each push to git should be deployed to corresponding Azure Functions App.
+
+
+https://funcdddddddddddddd.azurewebsites.net/
