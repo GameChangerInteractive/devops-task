@@ -19,7 +19,7 @@ resource "azurerm_app_service_plan" "func_app_service_plan" {
   kind                = "FunctionApp"
   reserved = true
   sku {
-    capacity = "2"
+    # capacity = "2"
     tier = "Dynamic"
     size = "Y1"
   }
@@ -27,7 +27,7 @@ resource "azurerm_app_service_plan" "func_app_service_plan" {
 }
 
 resource "azurerm_function_app" "func_function_app" {
-  name                = "func-function-app"
+  name                = "funcdddddddddddddd"
   location            = var.LOCATION
   resource_group_name = var.RESOURCE_GROUP
   app_service_plan_id = azurerm_app_service_plan.func_app_service_plan.id
