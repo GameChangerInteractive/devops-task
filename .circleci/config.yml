@@ -2,6 +2,8 @@ version: 2.1
 
 orbs:
   terraform: circleci/terraform@2.1.0
+  azure-cli: circleci/azure-cli@1.0.0
+  node: circleci/node@4.1.0
 
 workflows:
   deploy_infrastructure:
@@ -32,3 +34,33 @@ workflows:
               only: dev/apply
           requires:
             - terraform/plan
+  login-workflow:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: dev/deploy
+
+jobs:
+  deploy:
+    working_directory: ~/wrkdir
+    executor: node/default
+    steps:
+      - checkout
+      - azure-cli/install
+      - azure-cli/login-with-service-principal
+      - run:
+          name: Create wrkdir
+          command: mkdir wrkdir
+      - run:
+          name: Copy project to ~/wrkdir
+          command: rsync -av --progress ./ ~/wrkdir --exclude .circleci --exclude src/infra
+      - run:
+          name: List files in ~/wrkdir
+          command: ls -lFht ~/wrkdir
+      - run:
+          name: Install Azure functions tools
+          command: sudo npm i -g azure-functions-core-tools@3 --unsafe-perm true
+      - run:
+          name: Deploy to Azure function App
+          command: func azure functionapp publish $FUNCTION_APP_NAME --javascript
