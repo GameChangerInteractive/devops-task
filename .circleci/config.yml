@@ -37,6 +37,7 @@ workflows:
   login-workflow:
     jobs:
       - deploy:
+          context: func
           filters:
             branches:
               only: dev/deploy
