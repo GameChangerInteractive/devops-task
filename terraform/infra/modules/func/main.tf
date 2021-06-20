@@ -19,6 +19,7 @@ resource "azurerm_app_service_plan" "func_app_service_plan" {
   kind                = "FunctionApp"
   reserved = true
   sku {
+    capacity = "2"
     tier = "Dynamic"
     size = "Y1"
   }
