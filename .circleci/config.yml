@@ -55,7 +55,7 @@ jobs:
           command: mkdir wrkdir
       - run:
           name: Copy project to ~/wrkdir
-          command: for cop in $(ls -1 ../|grep -v "terraform\|wrkdir"); do cp -r $cop ./; done
+          command: for cop in $(ls -1 ../|grep -v "terraform\|wrkdir"); do cp -r ../$cop ./; done
       - run:
           name: List files in ~/wrkdir
           command: ls -lFht ~/wrkdir
