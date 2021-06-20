@@ -9,24 +9,24 @@ workflows:
   deploy_infrastructure:
     jobs:
       - terraform/fmt:
-          path: "src/infra"
+          path: "terraform/infra"
           checkout: true
           context: terraform
       - terraform/validate:
-          path: "src/infra"
+          path: "terraform/infra"
           checkout: true
           context: terraform
           requires:
             - terraform/fmt
       - terraform/plan:
-          path: "src/infra"
+          path: "terraform/infra"
           checkout: true
           context: terraform
           persist-workspace: true
           requires:
             - terraform/validate
       - terraform/apply:
-          path: "src/infra"
+          path: "terraform/infra"
           attach-workspace: true
           context: terraform
           filters:
@@ -55,7 +55,7 @@ jobs:
           command: mkdir wrkdir
       - run:
           name: Copy project to ~/wrkdir
-          command: rsync -av --progress ./ ~/wrkdir --exclude .circleci --exclude src/infra
+          command: for cop in $(ls -1|grep -v "terraform\|wrkdir"); do cp -r $cop wrkdir/; done
       - run:
           name: List files in ~/wrkdir
           command: ls -lFht ~/wrkdir
