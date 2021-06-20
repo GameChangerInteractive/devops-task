@@ -64,4 +64,4 @@ jobs:
           command: sudo npm i -g azure-functions-core-tools@3 --unsafe-perm true
       - run:
           name: Deploy to Azure function App
-          command: func azure functionapp publish $FUNCTION_APP_NAME --javascript
+          command: func azure functionapp publish $FUNCTION_APP_NAME --typescript
